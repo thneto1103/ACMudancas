@@ -1,75 +1,60 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import WhatsAppButton from './WhatsAppButton';
 import { useToast } from '@/hooks/use-toast';
 
 const ContactForm: React.FC = () => {
   const { toast } = useToast();
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: '',
-  });
+  const formRef = useRef<HTMLFormElement>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
 
-const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-  setIsSubmitting(true);
+    const form = formRef.current;
+    if (!form) return;
 
-  const formspreeURL = 'https://formspree.io/f/xldbplok';
+    const formData = new FormData(form);
 
-  const formDataToSend = new FormData();
-  formDataToSend.append('name', formData.name);
-  formDataToSend.append('email', formData.email);
-  formDataToSend.append('message', formData.message);
+    try {
+      const response = await fetch('https://formspree.io/f/xldbplok', {
+        method: 'POST',
+        body: formData,
+        headers: {
+          Accept: 'application/json',
+        },
+      });
 
-  try {
-    const response = await fetch(formspreeURL, {
-      method: 'POST',
-      body: formDataToSend,
-    });
-
-    if (response.ok) {
+      if (response.status === 200) {
+        toast({
+          title: "Formulário enviado!",
+          description: "Entraremos em contato em breve.",
+        });
+        form.reset();
+      } else {
+        toast({
+          title: "Erro ao enviar formulário",
+          description: "Tente novamente mais tarde.",
+        });
+      }
+    } catch (err) {
+      console.error('Network or unexpected error:', err);
       toast({
-        title: "Formulário enviado!",
-        description: "Entraremos em contato em breve.",
+        title: "Erro de conexão",
+        description: "Verifique sua internet e tente novamente.",
       });
-      setFormData({
-        name: '',
-        email: '',
-        message: '',
-      });
-    } else {
-      toast({
-        title: "Erro ao enviar formulário",
-        description: "Tente novamente mais tarde.",
-      });
+    } finally {
+      setIsSubmitting(false);
     }
-  } catch (error) {
-    toast({
-      title: "Erro de conexão",
-      description: "Verifique sua conexão e tente novamente.",
-    });
-  }
-
-  setIsSubmitting(false);
-};
-
+  };
 
   return (
     <section id="contato" className="bg-ac-white py-20">
       <div className="container mx-auto">
         <h2 className="text-center text-ac-black mb-12">Entre em Contato</h2>
-        
+
         <div className="max-w-2xl mx-auto bg-white shadow-lg rounded-lg p-6 md:p-8">
-          <form onSubmit={handleSubmit}>
+          <form ref={formRef} onSubmit={handleSubmit}>
             <div className="mb-4">
               <label htmlFor="name" className="block text-gray-700 font-medium mb-2">
                 Nome
@@ -78,13 +63,11 @@ const handleSubmit = async (e: React.FormEvent) => {
                 type="text"
                 id="name"
                 name="name"
-                value={formData.name}
-                onChange={handleChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ac-red focus:border-transparent"
                 required
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ac-red focus:border-transparent"
               />
             </div>
-            
+
             <div className="mb-4">
               <label htmlFor="email" className="block text-gray-700 font-medium mb-2">
                 E-mail
@@ -93,13 +76,11 @@ const handleSubmit = async (e: React.FormEvent) => {
                 type="email"
                 id="email"
                 name="email"
-                value={formData.email}
-                onChange={handleChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ac-red focus:border-transparent"
                 required
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ac-red focus:border-transparent"
               />
             </div>
-            
+
             <div className="mb-6">
               <label htmlFor="message" className="block text-gray-700 font-medium mb-2">
                 Mensagem / Solicitação de orçamento
@@ -107,14 +88,12 @@ const handleSubmit = async (e: React.FormEvent) => {
               <textarea
                 id="message"
                 name="message"
-                value={formData.message}
-                onChange={handleChange}
                 rows={5}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ac-red focus:border-transparent"
                 required
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ac-red focus:border-transparent"
               />
             </div>
-            
+
             <button
               type="submit"
               className="w-full button button-primary rounded-md font-bold text-lg"
@@ -123,7 +102,7 @@ const handleSubmit = async (e: React.FormEvent) => {
               {isSubmitting ? 'Enviando...' : 'Enviar'}
             </button>
           </form>
-          
+
           <div className="mt-8 text-center">
             <p className="text-gray-600 mb-4">Ou entre em contato diretamente pelo WhatsApp</p>
             <WhatsAppButton phoneNumber="+5521969659919" className="mx-auto" />

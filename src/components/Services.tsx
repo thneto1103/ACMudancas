@@ -12,27 +12,33 @@ interface ServiceCardProps {
   imageUrl: string;
 }
 
-const ServiceCard: React.FC<ServiceCardProps> = ({ title, description, imageUrl }) => (
-  <div className="bg-white rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:-translate-y-2">
-    <div className="h-48 overflow-hidden">
-      <img 
-        src={imageUrl} 
-        alt={title} 
-        className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-      />
+const ServiceCard: React.FC<ServiceCardProps> = ({ title, description, imageUrl }) => {
+  // Split the description into review text and name
+  const [reviewText, reviewerName] = description.split(' -- ');
+
+  return (
+    <div className="bg-white rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:-translate-y-2">
+      <div className="h-48 overflow-hidden">
+        <img 
+          src={imageUrl} 
+          alt={title} 
+          className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+        />
+      </div>
+      <div className="p-6">
+        <h3 className="text-ac-black font-bold mb-3">{title}</h3>
+        <p className="text-gray-700 mb-4">{reviewText}</p>
+        <p className="text-gray-700 font-semibold">{reviewerName}</p> {/* Show the reviewer's name on a new line */}
+        <a 
+          href="#contato" 
+          className="inline-flex items-center text-ac-red font-medium hover:underline"
+        >
+          Saiba mais <ArrowRight size={16} className="ml-1" />
+        </a>
+      </div>
     </div>
-    <div className="p-6">
-      <h3 className="text-ac-black font-bold mb-3">{title}</h3>
-      <p className="text-gray-700 mb-4">{description}</p>
-      <a 
-        href="#contato" 
-        className="inline-flex items-center text-ac-red font-medium hover:underline"
-      >
-        Saiba mais <ArrowRight size={16} className="ml-1" />
-      </a>
-    </div>
-  </div>
-);
+  );
+};
 
 const Services: React.FC = () => {
   const services = [

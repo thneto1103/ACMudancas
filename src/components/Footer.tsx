@@ -33,6 +33,12 @@ const Footer: React.FC = () => {
               <p className="flex items-center gap-2">
                 <Mail size={16} /> Acfretesmudanças@gmail.com
               </p>
+              <p className="flex items-center gap-2">
+                <Mail size={0}/> CNPJ: 32.219.677/0001-31
+              </p>
+              <p className="flex items-center gap-2">
+                <Mail size={0}/> AC TRANSPORTES -AUTO SOCORRO, FRETES E MUDANÇAS RJ LTDA
+              </p>
             </div>
           </div>
           
@@ -81,7 +87,7 @@ const Footer: React.FC = () => {
         </div>
         
         <div className="border-t border-ac-white/20 mt-8 pt-6 text-center">
-          <p>© {year} AC Mudanças. Todos os direitos reservados.</p>
+          <p>© {year} AC Fretes e Mudanças RJ. Todos os direitos reservados.</p>
         </div>
       </div>
     </footer>

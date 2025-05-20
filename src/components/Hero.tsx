@@ -12,7 +12,7 @@ const Hero: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           <div className="text-ac-white animate-slide-up">
             <h1 className="font-extrabold mb-4 leading-tight">
-              A Melhor Empresa de Mudanças do Rio de Janeiro
+              A Melhor Empresa de Fretes e Mudanças do Rio de Janeiro
             </h1>
             <p className="text-lg md:text-xl mb-6 font-light opacity-90">
               Segurança e agilidade no transporte de seus bens

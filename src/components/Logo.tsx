@@ -32,7 +32,7 @@ const Logo: React.FC<LogoProps> = ({ color = '#FF0000', size = 'medium', variant
   return (
     <div className={`inline-flex items-center gap-2 font-bold ${sizeClasses[size]}`} style={{ color }}>
       <Truck size={iconSize[size]} color={color} className="animate-fade-in" />
-      <span className="animate-fade-in font-extrabold">AC Mudanças</span>
+      <span className="animate-fade-in font-extrabold">AC Fretes e Mudanças</span>
     </div>
   );
 };

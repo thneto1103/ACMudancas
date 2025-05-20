@@ -10,7 +10,7 @@ import Footer from '@/components/Footer';
 const Index = () => {
   useEffect(() => {
     // Update document title
-    document.title = "AC Mudanças - A Melhor Empresa de Mudanças do Rio de Janeiro";
+    document.title = "AC Fretes e Mudanças - A Melhor Empresa de Mudanças do Rio de Janeiro";
 
     // Animation for elements with the animate-on-scroll class
     const observer = new IntersectionObserver((entries) => {

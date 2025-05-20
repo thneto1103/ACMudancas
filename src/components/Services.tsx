@@ -38,17 +38,17 @@ const Services: React.FC = () => {
   const services = [
     {
       title: 'Mudança Residencial',
-      description: 'Transporte seguro de seus móveis e pertences para seu novo lar, com equipe especializada para embalagem e montagem.',
+      description: '"Equipe comprometida e atenciosa, precisei realizar minha mudança, urgente e eles fizeram com profissionalismo e comprometimento." -- Marta',
       imageUrl: imgResidencial,
     },
     {
       title: 'Mudança Comercial',
-      description: 'Serviços especializados para empresas, incluindo transporte de equipamentos, arquivos e móveis de escritório.',
+      description: '"Indico o serviço. Eles chegaram no horário, fizeram o que pedi e realizaram tudo com cuidado e segurança." -- Rodrigo',
       imageUrl: imgComercial,
     },
     {
       title: 'Mudança Interestadual',
-      description: 'Transporte de longa distância para qualquer estado do Brasil, com rastreamento e garantia de segurança para seus bens.',
+      description: '"Quero dar os parabéns pelo trabalho prestado. Muita responsabilidade, atenção e profissionalismo. Em especial Márcio e Damião que chegaram no horário certo e deu tudo certo." -- Marlon',
       imageUrl: imgInterestadual,
     },
   ];
